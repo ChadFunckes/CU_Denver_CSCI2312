@@ -1,0 +1,12 @@
+UCD
+Name		Age	Gender	ID	College		GPA	Grade
+John Jones	22	M	813	Engineering	3	B
+
+Metro State
+Name		Age	Gender	ID	College		GPA	Grade
+Sarah Smith	19	F	805	Enineering	4	A
+
+jackass state
+Name		Age	Gender	ID	College		GPA	Grade
+jack billy bob 	33	M	812	sci		4	A
+

@@ -1,0 +1,18 @@
+John Jones,22,Male,UCD,Engineering,813
+HW1,15/20
+HW2,22/25
+HW3,18/20
+M1,47/50
+PA,42/50
+Sarah Smith,19,Female,Metro State,Enineering,805
+HW1,14/20
+HW2,17/25
+HW3,16/20
+M1,42/50
+P1,44/50
+jack billy bob sweeney,33,Male,jackass state,sci, 812
+hw1,12/22
+hw2,33/34
+HW3,16/20
+M1,42/50
+P1,44/50

@@ -1,0 +1,164 @@
+using std::cout;
+using std::endl;
+#define INITIAL_SIZE	1
+
+template<class type>
+DynamicArray<type>::DynamicArray()
+{
+	size = INITIAL_SIZE;
+	n = 0;
+	a = new type(size);
+}
+
+template<class type>
+DynamicArray<type>::~DynamicArray()
+{
+	if (a != NULL) {
+		delete[] a;
+		a = NULL;
+	}
+	size = INITIAL_SIZE;
+	n = 0;
+}
+
+template<class type>
+type & DynamicArray<type>::operator[] (int x)
+{
+#if _DEBUG
+	cout << endl << "precond: a[" << x << "]=" << a[x] << endl;
+#endif
+	// XXX Need to do some error checking here
+	return a[x];
+}
+
+template<class type>
+int DynamicArray<type>::GetElements()
+{
+	return n;
+}
+
+template<class type>
+int DynamicArray<type>::GetSize()
+{
+	return size;
+}
+
+template<class type>
+void DynamicArray<type>::Expand()
+{
+	type *a;
+	int i, size;
+
+	// Allocate a new array that is twice as large as before
+	size = this->size << 1;
+	a = new type[size];
+	if (a == NULL) {
+		// XXX Need to handle this error case
+		return;
+	}
+	// Record increased capacity
+	this->size = size;
+
+	// Copy the contents of the old array into the new array
+	for (i = 0; i < this->n; i++)
+		a[i] = this->a[i];
+
+	// Free old array replace it with the new array
+	delete this->a;
+	this->a = a;
+}
+
+template <class type>
+void DynamicArray<type>::Insert(type x)
+{
+#if _DEBUG
+	cout << endl << "Insert " << x << endl;
+#endif
+	// Insert element
+	this->a[n++] = x;
+
+	// Check whether capacity needs to be expanded
+	if (n == size)
+		this->Expand();
+}
+
+template<class type>
+void DynamicArray<type>::Print()
+{
+	int i;
+
+	cout << "size=" << size;
+	cout << "  n=" << n;
+	if (n == 0) {
+		cout << endl;
+		return;
+	}
+	cout << "  [";
+
+	for (i = 0; i < n; i++) {
+		cout << a[i];
+		if (i < n - 1)
+			cout << ",";
+	}
+	cout << "]" << endl;
+}
+
+template<class type>
+void  DynamicArray<type>::Compress()
+{
+	type *a;
+	int i, size;
+
+	if (this->size == 1)
+		return;
+
+	// Allocate a new array that is half as large as before
+	size = this->size >> 1;
+	a = new type[size];
+	if (a == NULL) {
+		// XXX Need to handle this error case
+		return;
+	}
+	// Record decreased capacity
+	this->size = size;
+
+	// Copy the contents of the old array into the new array
+	for (i = 0; i < this->n; i++)
+		a[i] = this->a[i];
+
+	// Free old array replace it with the new array
+	delete this->a;
+	this->a = a;
+}
+
+template<class type>
+void DynamicArray<type>::Remove(int i)
+{
+	int j;
+
+#if _DEBUG
+	cout << endl << "Remove a[" << i << "]=" << a[i] << endl;
+#endif
+
+	// Range check
+	if (i < 0 || i >= n)
+		return;
+
+	// Shift the remaining elements down to cover the spot left
+	// by the removal
+	for (j = i + 1; j < n; j++)
+		a[j - 1] = a[j];
+
+	// Reduce the number of elements
+	(this->n)--;
+
+	// Check for compression
+	if (this->n == (this->size) >> 1)
+		this->Compress();
+}
+
+template <class type>
+void DynamicArray<type>::Sort()
+{
+	return;
+}
